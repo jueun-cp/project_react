@@ -1,13 +1,18 @@
-const Router = require('koa-router');
-const postsCtrl = require('./posts.ctrl');
+import Router from 'koa-router';
+import * as postsCtrl from './posts.ctrl';
 
 const posts = new Router();
 
 posts.get('/', postsCtrl.list);
 posts.post('/', postsCtrl.write);
-posts.get('/:id', postsCtrl.read);
-posts.delete('/:id', postsCtrl.remove);
-posts.put('/:id', postsCtrl.replace);
-posts.patch('/:id', postsCtrl.update);
 
-module.exports = posts;
+//// 리펙토링 + 미들웨어 추가 ////
+const post = new Router();
+post.get('/', postsCtrl.read); // ObjectId 검증이 필요한 부분에 미들웨어 추가
+post.delete('/', postsCtrl.remove);    // ObjectId 검증이 필요한 부분에 미들웨어 추가
+post.patch('/', postsCtrl.update); // ObjectId 검증이 필요한 부분에 미들웨어 추가
+
+posts.use('/:id', postsCtrl.checkObjectId, post.routes());
+//// 리펙토링 + 미들웨어 추가 ////
+
+export default posts;
