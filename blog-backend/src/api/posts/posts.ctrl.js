@@ -80,13 +80,13 @@ export const list = async (ctx) => {
   };
 
   try {
-    const posts = await Post.find()
+    const posts = await Post.find(query)
       .sort({ _id: -1 }) // _id의 값이 1이면 오름차순, -1이면 내림차순으로 설정
       .limit(10) // 파라미터안에 제한할 숫자를 넣는다.
       .skip((page - 1) * 10) // 10페이지로 한번에 이동, 페이지를 지정하여 조회
       .lean() // lean()함수를 이용하여 글자 길이 제한
       .exec(); // exec으로 서버에 쿼리를 요청
-    const postCount = await Post.countDocuments().exec(); // 마지막 페이지 알려주는 곳
+    const postCount = await Post.countDocuments(query).exec(); // 마지막 페이지 알려주는 곳
     ctx.set('Last-Page', Math.ceil(postCount / 10)); // 마지막 페이지 알려주는 곳
     ctx.body = posts.map((post) => ({
       ...post,
