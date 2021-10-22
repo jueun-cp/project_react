@@ -1,0 +1,16 @@
+.WriteActionButtonsBlock {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+.WriteActionButtonsBlock.button{    
+    margin-left: 0.5rem;
+}
+
+.StyledButton {
+    height: 2.125rem;
+}
+
+.margin-left{
+    margin-left: 0.5rem;
+}
