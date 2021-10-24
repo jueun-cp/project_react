@@ -13,8 +13,8 @@ const App = () => {
       <Route component={LoginPage} path="/login"/>
       <Route component={RegisterPage} path="/register"/>
       <Route component={WritePage} path="/write"/>
-      <Route component={PostPage} path={['/@:username/:postId','/post']} exact/>
-      {/* 이거 사용하기<Route component={PostPage} path="/@:username/:postId"/> */}
+      {/*<Route component={PostPage} path={['/@:username/:postId','/post']} exact/>*/}
+      <Route component={PostPage} path="/@:username/:postId"/> 
 
     </>
   );
