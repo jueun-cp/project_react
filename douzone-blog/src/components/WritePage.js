@@ -1,5 +1,5 @@
-import EditorContainer from "../container/writer/EditorContainer";
-import TagBoxContainer from "../container/writer/TagBoxContainer";
+import EditorContainer from "../container/write/EditorContainer";
+import TagBoxContainer from "../container/write/TagBoxContainer";
 import Responsive from "./common/Responsive";
 import WriteActionButtons from "./write/WriteActionButtons";
 
