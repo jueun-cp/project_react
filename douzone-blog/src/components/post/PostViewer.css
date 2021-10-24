@@ -1,0 +1,44 @@
+.PostHead{
+border-bottom: 1px solid #e9ecef;
+padding-bottom: 3rem;
+margin-bottom: 3rem;
+}
+
+.PostHead h1 {
+    font-size: 3rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.SubInfo {
+    margin-top: 1rem;
+    color: #868e96;
+}
+ 
+/* span 사이에 가운뎃점 문자 보여주기 */
+span > span:before{
+    color: #adb5bd;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    content: '\\B7';    /*가운뎃점 문자*/
+}
+
+.Tags {
+    margin-top: 0.5rem;
+}
+
+.Tags > .tag {
+    display: inline-block;
+    color: #495057;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+.tag:hover{
+    color: #0c8599;
+}
+
+.PostContent {
+    font-size: 1.3125rem;
+    color: #343a40;
+}

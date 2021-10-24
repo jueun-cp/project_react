@@ -1,0 +1,43 @@
+.TagBoxBlock{
+    width: 100%;
+    border-top: 1px solid #e9ecef;
+    padding-top: 2rem;
+}
+h4{
+    color: #343a40;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.TagForm{
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    width: 256px;
+    border: 1px solid #212529;
+}
+
+.TagForm.input,.TagForm.button{
+    /* 스타일 초기화 */
+    outline: none;
+    border: none;
+    font-size: 1rem;
+}
+
+input {
+    padding: 0.5rem;
+    flex: 1;
+}
+
+button {
+    cursor: pointer;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background: #343a40;
+    color: white;
+    font-weight: bold;
+}
+button:hover {
+    background: #868e96;
+}

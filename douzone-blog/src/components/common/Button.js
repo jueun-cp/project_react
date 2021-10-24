@@ -16,6 +16,7 @@ const buttonStyle = css`
   &:hover {
     background: ${palette.gray[6]};
   }
+
   ${props =>
     props.fullWidth &&
     css`
@@ -24,6 +25,7 @@ const buttonStyle = css`
       width: 100%;
       font-size: 1.125rem;
     `}
+    
   ${props =>
     props.cyan &&
     css`
@@ -51,3 +53,4 @@ const Button = props => {
 };
 
 export default Button;
+
