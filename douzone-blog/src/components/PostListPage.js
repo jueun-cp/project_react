@@ -1,5 +1,13 @@
+import React from 'react';
+import HeaderContainer from '../contatiners/common/HeaderContatiner';
+
 const PostListPage = () => {
-    return <div> <h1>포스트 읽기</h1> </div>
+  return (
+    <>
+      <HeaderContainer />
+      <div>안녕하세요.</div>
+    </>
+  );
 };
 
 export default PostListPage;

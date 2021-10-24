@@ -12,25 +12,30 @@ const textMap = {
   register: '회원가입',
 };
 
-const AuthForm = ({ type }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
 
   return (
     <div className="AuthFormBlock">
       <h3>{text}</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <div>
           <input
             className="StyledInput"
             autoComplete="username"
             name="username"
             placeholder="아이디"
+            onChange={onChange}
+            value={form.username}
           ></input>
           <input
             className="StyledInput"
             autoComplete="new-password"
             name="password"
             placeholder="비밀번호"
+            type="password"
+            onChange={onChange}
+            value={form.password}
           ></input>
           {type === 'register' && (
             <input
@@ -38,15 +43,22 @@ const AuthForm = ({ type }) => {
               name="passwordConfirm"
               placeholder="비밀번호 확인"
               type="password"
+              onChange={onChange}
+              value={form.passwordConfirm}
             ></input>
           )}
         </div>
+        {error && <div className="ErrorMessage">{error}</div>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
-          로그인
+          {text}
         </Button>
       </form>
       <div className="Footer">
-        <Link to="">회원가입</Link>
+        {type === 'login' ? (
+          <Link to="/register">회원가입</Link>
+        ) : (
+          <Link to="/login">로그인</Link>
+        )}
       </div>
     </div>
   );
