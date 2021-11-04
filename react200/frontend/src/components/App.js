@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
 // css
-import '../css/new.css';
+import "../css/new.css";
 
 // header
-import HeaderAdmin from './Header/Header admin';
+import HeaderAdmin from "./Header/Header admin";
 
 // footer
-import Footer from './Footer/Footer';
+import Footer from "./Footer/Footer";
 
 // login
-import LoginForm from './LoginForm';
+import LoginForm from "./LoginForm";
 
-import SoftwareList from './SoftwareToolsManage/SoftwareList';
+import SoftwareList from "./SoftwareToolsManage/SoftwareList";
+import SoftwareView from "./SoftwareToolsManage/SoftwareView";
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <div className="App">
-        <HeaderAdmin/> 
-        <Route exact path='/' component={LoginForm} />
-        <Route path='/SoftwareList' component={SoftwareList} />
-        <Footer/>
+        <HeaderAdmin />
+        <Route exact path="/" component={LoginForm} />
+        <Route path="/SoftwareView/:swtcode" component={SoftwareView} />
+        <Route path="/SoftwareList" component={SoftwareList} />
+        <Footer />
       </div>
     );
   }

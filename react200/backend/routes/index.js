@@ -3,6 +3,7 @@ const app = express();
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
+  // res.render('index',{title:'Express'});
   res.send("this is main");
   //res.render('index', { title: 'Express' }); 
   //views/index.js 파일에 있는 것을 뿌려줌

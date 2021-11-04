@@ -5,6 +5,8 @@ const mysql = require("mysql");
 
 //mysql 서버 접속 정보
 const pool = mysql.createPool({
+  connectionLimit: 66,
+  waitForConnections: true,
   host: "192.168.0.30",
   port: "3307",
   database: "react",
@@ -15,6 +17,8 @@ const pool = mysql.createPool({
 app.post("/", (req, res) => {
   const mybatisMapper = require("mybatis-mapper");
   let param = req.body;
+  //console.log('tttttttttt',param);
+  
 
   //mybatis mapper경로 설정
   //흔히 알고있는 매퍼로드(xml이 있는 디렉토리 주소&파일위치를 입력하여주세요!!!)
@@ -41,9 +45,10 @@ app.post("/", (req, res) => {
   console.log(query + "\n");
 
   pool.getConnection(function (err, connection) {
+    
     connection.query(query, function (error, results) {
       if (error) {
-        console.log("db error************* : " + error);
+        console.log("db error : " + error);
       }
       if (results != undefined) {
         string = JSON.stringify(results);
@@ -57,7 +62,7 @@ app.post("/", (req, res) => {
         res.send("error");
       }
       connection.release();
-      console.log("========= Node Mybatis Query Log End =========\n");
+      //console.log("========= Node Mybatis Query Log End =========\n");
     });
   });
 });

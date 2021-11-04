@@ -1,18 +1,29 @@
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-const SoftwareList = () => {
-  const [responseSwtoolList, setResponseSwtoolList] = useState("");
-  const [append_SwtoolList, setAppend_SwtoolList] = useState("");
+class SoftwareList extends Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(async () => {
-    await axios
+    this.state = {
+      responseSwtoolList: "",
+      append_SwtoolList: "",
+    };
+  }
+
+  componentDidMount() {
+    this.callSwToolListApi();
+  }
+
+  callSwToolListApi = async () => {
+    axios
       .post("/api/Swtool?type=list", {})
       .then((response) => {
         try {
-          setResponseSwtoolList(response);
-          setAppend_SwtoolList(SwToolListAppend(response));
+          this.setState({ responseSwtoolList: response });
+          this.setState({ append_SwtoolList: this.SwToolListAppend() });
         } catch (error) {
           alert("작업중 오류가 발생하였습니다.");
         }
@@ -21,11 +32,11 @@ const SoftwareList = () => {
         alert("작업중 오류가 발생하였습니다.");
         return false;
       });
-  }, []);
+  };
 
-  const SwToolListAppend = (param) => {
+  SwToolListAppend = () => {
     let result = [];
-    var SwToolList = param.data;
+    var SwToolList = this.state.responseSwtoolList.data;
 
     for (let i = 0; i < SwToolList.json.length; i++) {
       var data = SwToolList.json[i];
@@ -43,12 +54,17 @@ const SoftwareList = () => {
           <td>{reg_date}</td>
           <td>
             <Link
-              to={"/AdminSoftwareView/" + data.swt_code}
+              to={"/SoftwareView/" + data.swt_code}
               className="bt_c1 bt_c2 w50_b"
             >
               수정
             </Link>
-            <a href="#n" class="bt_c1 w50_b">
+            <a
+              href="#n"
+              class="bt_c1 w50_b"
+              id={data.swt_code}
+              onClick={(e) => this.deleteSwtool(e)}
+            >
               삭제
             </a>
           </td>
@@ -57,32 +73,76 @@ const SoftwareList = () => {
     }
     return result;
   };
-  return (
-    <section class="sub_wrap">
-      <article class="s_cnt mp_pro_li ct1 mp_pro_li_admin">
-        <div class="li_top">
-          <h2 class="s_tit1">Software Tools 목록</h2>
-          <div class="li_top_sch af">
-            <Link to={"/AdminSoftwareView/register"} className="sch_bt2 wi_au">
-              Tool 등록
-            </Link>
-          </div>
-        </div>
 
-        <div class="list_cont list_cont_admin">
-          <table class="table_ty1 ad_tlist">
-            <tr>
-              <th>툴 이름</th>
-              <th>기능</th>
-              <th>등록일</th>
-              <th>기능</th>
-            </tr>
-          </table>
-          <table class="table_ty2 ad_tlist">{append_SwtoolList}</table>
-        </div>
-      </article>
-    </section>
-  );
-};
+  deleteSwtool = (e) => {
+    var event_target = e.target;
+    this.sweetalertDelete(
+      "정말 삭제하시겠습니까?",
+      function () {
+        axios
+          .post("/api/Swtool?type=delete", {
+            is_SwtCd: event_target.getAttribute("id"),
+          })
+          .then((response) => {
+            this.callSwToolListApi();
+          })
+          .catch((error) => {
+            alert("작업중 오류가 발생하였습니다.");
+            return false;
+          });
+      }.bind(this)
+    );
+  };
+
+  sweetalertDelete = (title, callbackFunc) => {
+    Swal.fire({
+      title: title,
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire("Deleted!", "삭제되었습니다.", "success");
+      } else {
+        return false;
+      }
+      callbackFunc();
+    });
+  };
+
+  render() {
+    return (
+      <section class="sub_wrap">
+        <article class="s_cnt mp_pro_li ct1 mp_pro_li_admin">
+          <div class="li_top">
+            <h2 class="s_tit1">Software Tools 목록</h2>
+            <div class="li_top_sch af">
+              <Link to={"/SoftwareView/register"} className="sch_bt2 wi_au">
+                Tool 등록
+              </Link>
+            </div>
+          </div>
+
+          <div class="list_cont list_cont_admin">
+            <table class="table_ty1 ad_tlist">
+              <tr>
+                <th>툴 이름</th>
+                <th>기능</th>
+                <th>등록일</th>
+                <th>기능</th>
+              </tr>
+            </table>
+            <table class="table_ty2 ad_tlist">
+              {this.state.append_SwtoolList}
+            </table>
+          </div>
+        </article>
+      </section>
+    );
+  }
+}
 
 export default SoftwareList;
