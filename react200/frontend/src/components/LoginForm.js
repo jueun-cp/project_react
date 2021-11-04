@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+
+import React from 'react';
 import { Link } from 'react-router-dom'
 
-class LoginForm extends Component {
-    render () {
-        return (
-            <section className="main">
+const LoginForm = () => {
+    return (
+        <section className="main">
                 <div className="m_login">
                 <h3><span><img src={require("../img/main/log_img.png")} alt="" />
                 </span>LOGIN</h3>
@@ -29,8 +29,7 @@ class LoginForm extends Component {
                 </div>
                 </div>
             </section>
-        );
-    }
-}
+    );
+};
 
 export default LoginForm;
